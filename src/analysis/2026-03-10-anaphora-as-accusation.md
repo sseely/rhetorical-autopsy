@@ -90,9 +90,6 @@ The final line — "This is the man who said he'd lower your cost of living on d
 2. What would the post look like if Trump were *not* playing golf? The "As..." structure implies that golf is the problem. Is there a presidential response to the Iran war, the jobs report, or any of these crises that would satisfy the implied standard — and did it happen?
 3. "The Epstein files stay buried" appears between a verified geopolitical event (Iran's new Supreme Leader) and a verified domestic one (the golf game). Why is an unfalsifiable implication in the middle of a list of current events? What is it borrowing from its neighbors?
 
-## Facebook Teaser
-Count the "As..." lines: eight real crises, rapid-fire. Six of them check out. Then "the Epstein files stay buried" — no date, no specific file, no recent event, just an implication dropped into a list of verified facts. The post never claims Trump caused any of these things. It just puts them in the same sentence. Here's how that structure works on you: [link]
-
 *Sources consulted:*
 - [BLS Employment Situation Summary, February 2026](https://www.bls.gov/news.release/empsit.nr0.htm)
 - [NPR: US lost 92,000 jobs last month](https://www.npr.org/2026/03/06/nx-s1-5737603/jobs-labor-market-economy)

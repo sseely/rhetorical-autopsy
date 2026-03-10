@@ -95,12 +95,6 @@ The DHS database claim does FUD work: "a database that has already been flagging
 
 ---
 
-## Facebook Teaser
-
-This post uses real data — the Utah review, the NBC poll, the Brennan Center numbers — and deploys them through the same emotional architecture as the disinformation it's reacting to. Activation → escalation → "he's trying to eliminate them." One key number (100 million) doesn't mean what the post implies it means, and one key quote (the "50 years" brag) has no linked source. The facts are mostly right. The frame is doing the heavy lifting. Here's how this post works on you: [link]
-
----
-
 **Note on what makes this post analytically interesting:** Most content submitted to this tool relies on fabricated or distorted sources. This one doesn't — it's well-sourced advocacy. But the persuasion mechanics are identical to low-quality disinformation: emotional escalation, loss framing, tribal closure, one unverified quote doing character-assassination work. Accurate information can still be deployed manipulatively. The inoculation point isn't "this is wrong." It's "notice the machinery even when the facts are real."
 
 ---

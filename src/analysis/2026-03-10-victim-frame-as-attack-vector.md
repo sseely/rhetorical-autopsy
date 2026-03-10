@@ -63,10 +63,6 @@ This foundation stack (Liberty + Fairness) skews toward an audience already prim
 
 3. "Yall still upset about Biden and Obama" — the post criticizes the other side for backward-looking deflection, then uses "shambles" to describe the present. Is that a different rhetorical move, or the same one from a different direction?
 
-## Facebook Teaser
-
-This post says "I did NOT make this political" and then calls him "trumpy pedo" in the next paragraph. That's not a contradiction — that's how reactive content works. You feel justified, so the escalation doesn't register as escalation. The gas prices are real ($3.48/gallon, AAA March 9). The Kroger rewards are real. The frustration is real. And the post still runs the exact Unity playbook it's complaining about. Here's the mechanical breakdown of how that happens: [link]
-
 **Sources:**
 - [AAA Fuel Prices — March 2026](https://gasprices.aaa.com/2026/03/)
 - [Kroger Fuel Points Program](https://www.kroger.com/d/fuel-points-program)

@@ -93,5 +93,3 @@ The alternative frame of the same facts: "A South Carolina newspaper confirmed t
 2. The Post & Courier titled its investigation "Fuzzy memories and hard facts." The Facebook post calls it a "HUGE BOMBSHELL" that "VERIFIES" the story. Which framing matches the paper's actual findings?
 3. If the verified items were about the background of someone accusing a politician you support, would you read the same numbered list as proof of the core allegation — or as proof that the accuser is a real person whose central claim still hasn't been confirmed?
 
-## Facebook Teaser
-Sixteen numbered items. All verified. "HUGE BOMBSHELL." Except: count which items verify that Trump did anything. The answer is zero. The Post & Courier confirmed where the accuser lived, where she went to school, and that her mother had a criminal record. The paper explicitly did not verify the Trump allegation. The post's own item 6 admits the gap — then buries it under ten more "confirmed" details. Here's how a numbered list makes peripheral facts feel like proof of the central claim: [link]

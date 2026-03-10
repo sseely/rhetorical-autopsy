@@ -50,10 +50,6 @@ This is the only section that matters for this piece. The analysis stops here if
 2. **What would a real legal settlement look like?** Court cases leave records — dockets, filings, appeals. Civil settlements for $16 million involving named children don't vanish from every legal database, news archive, and public record. If no one can find a single record for any of the six names, what does that tell you about the source?
 3. **What did the photo actually show?** Before you read the text, what did the photo show you? A man in a tuxedo at a formal event with a young girl. After reading the text, did it look different? That shift in perception is the photo-text pairing working on you.
 
-## Facebook Teaser
-
-Notice the list starts at "(2)" — suggesting there's a whole page of this you haven't seen. Notice the exact dollar amounts, exact ages, exact locations — it's designed to look like a court document. None of these names exist in any court filing, legal database, or news archive. Two independent fact-checkers traced the entire list to a single anonymous blog post from 2019 with zero documents attached. Here's how this post's format works on you: [link]
-
 **Sources:**
 - [Snopes — No proof Trump paid millions in settlements over allegations of sexually assaulting minors (Dec. 2025)](https://www.snopes.com/news/2025/12/22/trump-settlements-minors/)
 - [Snopes — No evidence Trump paid millions in settlements over allegations of sexually assaulting minors (Jan. 2026)](https://www.snopes.com/news/2026/01/13/trump-minors-settlements-claim/)

@@ -132,6 +132,9 @@ ${tagsYaml}${originalPostYaml}
     body = body.slice(quickReadIdx);
   }
 
+  // Strip Facebook Teaser — it's for Discord, not the published site
+  body = body.replace(/## Facebook Teaser\s*\n+[\s\S]*?(?=\n##\s|\n\*\*Sources|\n---\s*$|$)/, "");
+
   body = body.replace(/^---\s*$/gm, "").replace(/\n{3,}/g, "\n\n").trim();
 
   const fullContent = `${frontmatter}\n\n${body}\n`;

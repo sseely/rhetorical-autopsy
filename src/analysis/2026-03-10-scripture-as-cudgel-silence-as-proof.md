@@ -50,10 +50,6 @@ The post frames the choice as binary: public rebuke or hypocrisy. It excludes se
 2. The scripture quote was originally about Pharisees policing hand-washing rituals. The application to "not publicly rebuking a president" is the author's interpretation. Does that interpretation hold? Or is the post doing the same thing it accuses the leaders of — borrowing scriptural credibility for a conclusion scripture didn't draw?
 3. What would rebuke look like, specifically, that this post would accept as real? Is there any form of engagement with political power that doesn't get called hypocrisy under this framework?
 
-## Facebook Teaser
-
-Notice the post knows you'll recognize "these people honor me with their lips" because Jesus already put it in your head. It hands you Epstein, Iran, ICE, and "minority groups" as one unbroken charge, then closes with a scripture verdict that makes disagreement feel like defending the Pharisees. The hinge the whole argument turns on — that these leaders "refuse to rebuke" — is stated as fact without any evidence that rebuke was ever offered and declined. Here's how this post works on you: [link]
-
 **Sources consulted:**
 - [Baptist News Global — Evangelical leaders return to Oval Office](https://baptistnews.com/article/evangelical-leaders-return-to-oval-office-to-pray-over-trump/)
 - [NPR — DOJ removed Epstein files related to Trump](https://www.npr.org/2026/02/24/nx-s1-5723968/epstein-files-trump-accusation-maxwell)

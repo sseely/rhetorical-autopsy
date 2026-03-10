@@ -52,5 +52,3 @@ The text doesn't carry all the persuasive load. The darkened photo (standard vis
 2. If someone posted this exact list targeting a political figure you support, would the list feel like a policy proposal or a threat?
 3. What specific crimes are being alleged here, and what is your source for that allegation? If you can't answer, you've been asked to perform a verdict without being shown any evidence.
 
-## Facebook Teaser
-"EXILE TRUMP" opens with a command, then gives you five bullets of punishment to agree with — ending with "LET HISTORY RECORD," which presumes the verdict is already in. But here's the detail: the very first bullet, revoking citizenship, is unconstitutional. The Supreme Court ruled in 1967 that the government can't strip a citizen of citizenship without their consent (*Afroyim v. Rusk*). This post doesn't want you asking whether any of this is legally possible — it wants you saying yes or no to the team. Here's how the loyalty test works: [link]

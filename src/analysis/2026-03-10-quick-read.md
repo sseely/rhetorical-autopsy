@@ -101,12 +101,6 @@ The post's most interesting structural move is framing Graham's candor as a scan
 
 ---
 
-## Facebook Teaser
-
-Graham said "best money ever spent" — about a billion dollars a day. He said "we're going to make a ton of money" — about a war. He said "We're marching through the world" — while wearing a "Free Cuba" hat. Those quotes are real and on camera. What this post does with them — the sequencing, the framing, the 787 figure that was already over 1,000 by the time you read it — is worth examining separately. Here's how the construction works: [link]
-
----
-
 Sources:
 - [Al Jazeera — Graham "tonne of money"](https://www.aljazeera.com/news/2026/3/9/we-are-going-make-a-tonne-of-money-us-senator-graham-on-us-war-on-iran)
 - [HuffPost — "Best Money Ever Spent"](https://www.huffpost.com/entry/lindsey-graham-iran-war-best-money-ever-spent_n_69ad8d35e4b0258d5b092db4)
