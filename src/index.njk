@@ -1,0 +1,29 @@
+---
+layout: layouts/base.njk
+---
+<section class="analyses-list">
+  <h1>Analyses</h1>
+  {% set analysisList = collections.analyses %}
+  {% if analysisList | length %}
+  {% for post in analysisList %}
+  <article class="analysis-card">
+    <time datetime="{{ post.date | isoDate }}">{{ post.date | readableDate }}</time>
+    <h2><a href="{{ post.url }}">{{ post.data.title }}</a></h2>
+    {% if post.data.description %}
+    <p>{{ post.data.description }}</p>
+    {% endif %}
+    {% if post.data.tags | length %}
+    <ul class="analysis-tags">
+      {% for tag in post.data.tags %}
+      {% if tag != "analysis" %}
+      <li class="tag">{{ tag }}</li>
+      {% endif %}
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </article>
+  {% endfor %}
+  {% else %}
+  <p>No analyses published yet.</p>
+  {% endif %}
+</section>

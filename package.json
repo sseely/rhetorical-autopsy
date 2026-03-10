@@ -1,0 +1,18 @@
+{
+  "name": "rhetorical-autopsy",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Media literacy tool — structural analysis of divisive content",
+  "scripts": {
+    "dev": "eleventy --serve",
+    "build": "eleventy",
+    "clean": "rm -rf _site"
+  },
+  "dependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "@11ty/eleventy-plugin-rss": "^2.0.2",
+    "markdown-it": "^14.1.0",
+    "markdown-it-footnote": "^4.0.0"
+  },
+  "devDependencies": {}
+}

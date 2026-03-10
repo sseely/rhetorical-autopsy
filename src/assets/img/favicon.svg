@@ -1,0 +1,52 @@
+<svg width="32" height="32" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="shieldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#002868" />
+      <stop offset="50%" stop-color="#0047ab" />
+      <stop offset="100%" stop-color="#1a1f3a" />
+    </linearGradient>
+    <linearGradient id="eagleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="50%" stop-color="#f8f9fa" />
+      <stop offset="100%" stop-color="#e6f3ff" />
+    </linearGradient>
+    <linearGradient id="starGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffd700" />
+      <stop offset="100%" stop-color="#ffed4a" />
+    </linearGradient>
+  </defs>
+
+  <!-- Shield background -->
+  <path 
+    d="M50 5 L85 20 L85 45 Q85 75 50 95 Q15 75 15 45 L15 20 Z" 
+    fill="url(#shieldGradient)" 
+    stroke="rgba(255,255,255,0.3)" 
+    stroke-width="1"
+  />
+
+  <!-- Stylized eagle -->
+  <g transform="translate(50, 35)">
+    <!-- Eagle body -->
+    <ellipse cx="0" cy="8" rx="6" ry="12" fill="url(#eagleGradient)" />
+    
+    <!-- Eagle wings -->
+    <path 
+      d="M-6 5 Q-18 0 -25 8 Q-20 12 -6 10 Z" 
+      fill="url(#eagleGradient)" 
+      opacity="0.9"
+    />
+    <path 
+      d="M6 5 Q18 0 25 8 Q20 12 6 10 Z" 
+      fill="url(#eagleGradient)" 
+      opacity="0.9"
+    />
+    
+    <!-- Eagle head -->
+    <circle cx="0" cy="-5" r="5" fill="url(#eagleGradient)" />
+  </g>
+
+  <!-- Star -->
+  <g fill="url(#starGradient)">
+    <path d="M50 15 L52 19 L56 19 L53 22 L54 26 L50 24 L46 26 L47 22 L44 19 L48 19 Z" />
+  </g>
+</svg>

@@ -1,0 +1,41 @@
+---
+layout: layouts/base.njk
+---
+<article class="analysis">
+  <header class="analysis-header">
+    <time datetime="{{ date | isoDate }}">{{ date | readableDate }}</time>
+    <h1>{{ title }}</h1>
+    {% if description %}
+    <p class="analysis-description">{{ description }}</p>
+    {% endif %}
+    {% if tags | length %}
+    <ul class="analysis-tags">
+      {% for tag in tags %}
+      {% if tag != "analysis" %}
+      <li class="tag">{{ tag }}</li>
+      {% endif %}
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </header>
+
+  <div class="analysis-body">
+    {# Side-by-side: original post + analysis #}
+    {% if originalPost %}
+    <aside class="original-post">
+      <h2>Original Post</h2>
+      <blockquote class="original-post-text">
+        {{ originalPost | safe }}
+      </blockquote>
+    </aside>
+    {% endif %}
+
+    <div class="analysis-content">
+      {{ content | safe }}
+    </div>
+  </div>
+
+  <footer class="analysis-footer">
+    <p class="analysis-method">Analysis framework: inoculation theory (McGuire, 1964; van der Linden et al., 2017). This tool analyzes persuasive structure — it does not evaluate the truth of claims or take political positions.</p>
+  </footer>
+</article>

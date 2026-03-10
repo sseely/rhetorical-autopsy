@@ -1,0 +1,9 @@
+node_modules/
+_site/
+.env
+*.env
+.DS_Store
+bot/dist/
+bot/node_modules/
+.playwright-mcp/
+*.png
