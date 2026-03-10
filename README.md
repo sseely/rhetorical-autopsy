@@ -28,16 +28,16 @@ The theoretical basis is **inoculation theory** ([McGuire, 1964](https://doi.org
 
 ```mermaid
 flowchart TD
-    A[Content pasted\nin Discord channel] --> B[Bot creates thread]
-    B --> C[Bot downloads images\nif present]
-    C --> D["claude -p runs analysis\nwith CLAUDE.md framework"]
-    D --> E[Bot posts preview\nin thread]
+    A["Content pasted<br/>in Discord channel"] --> B[Bot creates thread]
+    B --> C["Bot downloads images<br/>if present"]
+    C --> D["claude -p runs analysis<br/>with CLAUDE.md framework"]
+    D --> E["Bot posts preview<br/>in thread"]
     E --> F{Reviewer decision}
     F -->|Reply with feedback| D
-    F -->|React with 👍| G[Bot strips teaser,\nbuilds frontmatter]
-    G --> H[Bot commits markdown\nand pushes to main]
-    H --> I[Cloudflare Pages\nrebuilds site]
-    I --> J[Analysis live\non site]
+    F -->|"React with 👍"| G["Bot strips teaser,<br/>builds frontmatter"]
+    G --> H["Bot commits markdown<br/>and pushes to main"]
+    H --> I["Cloudflare Pages<br/>rebuilds site"]
+    I --> J["Analysis live<br/>on site"]
 
     style A fill:#002868,color:#fff
     style J fill:#002868,color:#fff
