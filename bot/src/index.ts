@@ -261,9 +261,15 @@ async function handleApproval(
 // ── Helpers ──────────────────────────────────────
 
 function formatPreview(markdown: string): string {
-  const maxLen = 1900; // Leave room for formatting
+  const maxLen = 1900;
   if (markdown.length <= maxLen) return markdown;
-  return markdown.slice(0, maxLen) + "\n\n*[truncated — full analysis will be in the published page]*";
+
+  // Cut at last sentence-ending punctuation before the limit
+  const chunk = markdown.slice(0, maxLen);
+  const lastSentence = chunk.search(/[.!?]\s[^.!?]*$/);
+  const cutPoint = lastSentence !== -1 ? lastSentence + 1 : maxLen;
+
+  return markdown.slice(0, cutPoint) + "\n\n*[truncated — full analysis will be in the published page]*";
 }
 
 // ── Start ────────────────────────────────────────

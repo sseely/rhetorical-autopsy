@@ -254,6 +254,8 @@ These patterns only become visible when looking at multiple pieces of content to
 When analyzing content, use this structure:
 
 ```
+Title: [Short, punchy title for the analysis — 3-8 words, like a medical examiner's case label. Name the primary technique or the content's mechanical purpose. Examples: "Unity as a Weapon", "Fabricated Authority Play", "Fear-Ladder to Policy". NOT a summary of the content's topic.]
+
 ## Quick Read (1-2 sentences)
 What is this content doing, mechanically? Who is it designed to persuade and how?
 

@@ -9,6 +9,13 @@ export interface PublishResult {
   url: string;
 }
 
+function truncateAtSentence(text: string, maxLen: number): string {
+  if (text.length <= maxLen) return text;
+  const chunk = text.slice(0, maxLen);
+  const lastSentence = chunk.search(/[.!?]\s[^.!?]*$/);
+  return lastSentence !== -1 ? chunk.slice(0, lastSentence + 1) : chunk;
+}
+
 function slugify(text: string): string {
   return text
     .toLowerCase()
@@ -16,18 +23,12 @@ function slugify(text: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
-/**
- * Extract a short title from the analysis markdown.
- * Looks for "## Quick Read" content to derive a slug.
- */
 function extractTitle(markdown: string): string {
-  const quickReadMatch = markdown.match(
-    /## Quick Read\s*\n+(.+?)(?:\n|\.)/
-  );
-  if (quickReadMatch) {
-    return quickReadMatch[1].trim().split(/\s+/).slice(0, 8).join(" ");
-  }
+  // Look for explicit "Title: ..." line at the top of the analysis
+  const titleMatch = markdown.match(/^Title:\s*(.+)$/m);
+  if (titleMatch) return titleMatch[1].trim();
 
+  // Fallback: first heading
   const headingMatch = markdown.match(/^#{1,3}\s+(.+)$/m);
   if (headingMatch) return headingMatch[1].trim();
 
@@ -78,7 +79,7 @@ export async function publishAnalysis(
     /## Quick Read\s*\n+([\s\S]*?)(?=\n##\s)/
   );
   const description = quickReadMatch
-    ? quickReadMatch[1].trim().replace(/\n/g, " ").slice(0, 200)
+    ? truncateAtSentence(quickReadMatch[1].trim().replace(/\n/g, " "), 200)
     : title;
 
   const tagsYaml =
@@ -96,7 +97,9 @@ originalPost: |
 ${escapedPost}
 ---`;
 
-  const fullContent = `${frontmatter}\n\n${analysisMarkdown}\n`;
+  // Strip the Title: line from the body — it's now in frontmatter
+  const body = analysisMarkdown.replace(/^Title:\s*.+\n*/m, "").trimStart();
+  const fullContent = `${frontmatter}\n\n${body}\n`;
 
   await writeFile(filePath, fullContent, "utf-8");
 
