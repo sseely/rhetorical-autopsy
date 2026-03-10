@@ -24,9 +24,9 @@ function slugify(text: string): string {
 }
 
 function extractTitle(markdown: string): string {
-  // Look for explicit "Title: ..." line at the top of the analysis
-  const titleMatch = markdown.match(/^Title:\s*(.+)$/m);
-  if (titleMatch) return titleMatch[1].trim();
+  // "Title: Foo" or "**Title: Foo**" or "**Title:** Foo"
+  const titleMatch = markdown.match(/^\*{0,2}Title:\*{0,2}\s*(.+?)(?:\*{0,2})$/m);
+  if (titleMatch) return titleMatch[1].trim().replace(/\*+$/, "").trim();
 
   // Fallback: first heading
   const headingMatch = markdown.match(/^#{1,3}\s+(.+)$/m);
@@ -70,10 +70,28 @@ export async function publishAnalysis(
   const filename = `${slug}.md`;
   const filePath = join(repoPath, ANALYSIS_DIR, filename);
 
-  const escapedPost = originalPost
-    .split("\n")
-    .map((line) => `    ${line}`)
-    .join("\n");
+  // Use the provided originalPost, or fall back to Source Text from the analysis (image OCR)
+  let postText = originalPost.trim();
+  if (!postText) {
+    const sourceMatch = analysisMarkdown.match(
+      /^Source Text:\s*\n?([\s\S]*?)(?=\n##\s|\n\*{0,2}Title:)/m
+    );
+    if (!sourceMatch) {
+      // Try single-line Source Text:
+      const singleLine = analysisMarkdown.match(/^Source Text:\s*(.+)$/m);
+      if (singleLine) postText = singleLine[1].trim();
+    } else {
+      postText = sourceMatch[1].trim();
+    }
+  }
+
+  const hasOriginalPost = postText.length > 0;
+  const escapedPost = hasOriginalPost
+    ? postText
+        .split("\n")
+        .map((line) => `    ${line}`)
+        .join("\n")
+    : "";
 
   const quickReadMatch = analysisMarkdown.match(
     /## Quick Read\s*\n+([\s\S]*?)(?=\n##\s)/
@@ -87,18 +105,35 @@ export async function publishAnalysis(
       ? tags.map((t) => `  - ${t}`).join("\n")
       : '  - "analysis"';
 
+  const originalPostYaml = hasOriginalPost
+    ? `\noriginalPost: |\n${escapedPost}`
+    : "";
+
   const frontmatter = `---
 title: "${title.replace(/"/g, '\\"')}"
 date: ${date}
 description: "${description.replace(/"/g, '\\"')}"
 tags:
-${tagsYaml}
-originalPost: |
-${escapedPost}
+${tagsYaml}${originalPostYaml}
 ---`;
 
-  // Strip the Title: line from the body — it's now in frontmatter
-  const body = analysisMarkdown.replace(/^Title:\s*.+\n*/m, "").trimStart();
+  // Clean the body:
+  // 1. Strip any Title: line (plain or bold markdown)
+  // 2. Remove preamble before ## Quick Read (Claude thinking noise)
+  // 3. Remove standalone horizontal rules (---) that clutter the layout
+  let body = analysisMarkdown
+    .replace(/^\*{0,2}Title:\*{0,2}\s*.+\n*/m, "")
+    .replace(/^Source Text:\s*\n?[\s\S]*?(?=\n##\s)/m, "")
+    .replace(/^Source Text:\s*.+\n*/m, "")
+    .trimStart();
+
+  const quickReadIdx = body.indexOf("## Quick Read");
+  if (quickReadIdx > 0) {
+    body = body.slice(quickReadIdx);
+  }
+
+  body = body.replace(/^---\s*$/gm, "").replace(/\n{3,}/g, "\n\n").trim();
+
   const fullContent = `${frontmatter}\n\n${body}\n`;
 
   await writeFile(filePath, fullContent, "utf-8");

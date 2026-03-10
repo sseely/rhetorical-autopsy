@@ -52,6 +52,8 @@ client.once(Events.ClientReady, (c) => {
 
 // ── New message in the watched channel ───────────
 client.on(Events.MessageCreate, async (message: Message) => {
+  console.log(`[Message] channelId=${message.channelId}, isBot=${message.author.bot}, isThread=${message.channel.isThread()}, content="${message.content.slice(0, 50)}", attachments=${message.attachments.size}`);
+
   if (message.author.bot) return;
 
   // Top-level message in the designated channel → new analysis

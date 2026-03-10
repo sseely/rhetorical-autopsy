@@ -249,11 +249,11 @@ body {
 }
 
 @media (min-width: 800px) {
-  .analysis {
+  .analysis:has(.original-post) {
     max-width: var(--max-width-wide);
   }
 
-  .analysis-body {
+  .analysis-body:has(.original-post) {
     grid-template-columns: 320px 1fr;
     gap: 3rem;
   }

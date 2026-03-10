@@ -1,39 +1,41 @@
 ---
-title: "Quick Read"
+title: "Anaphora as Accusation"
 date: 2026-03-10
 description: "This post uses anaphoric stacking — eight crisis lines beginning with \"As...\" — to imply that Trump's leisure is causally or morally equivalent to negligence during each crisis."
 tags:
-  - "analysis"
+  - unity
+  - commitment-consistency
+  - liking
+  - fud
+  - framing-effects
+  - identity-threat-construction
 originalPost: |
-    
----
+    As US troops deploy to the Middle East
+    As gas prices spike
+    As 92,000 jobs vanish in a single month
+    As scores of children die in elementary schools
+    As acid rain falls over Tehran
+    As Switzerland breaks 200 years of neutrality to call it a war crime
+    As Iran announces a new Supreme Leader
+    As the Epstein files stay buried
 
-Good. I have what I need. Now writing the full analysis.
+    Donald Trump is on the golf course with his billionaire friends.
 
----
-
-**Title: Anaphora as Accusation**
-
+    This is the man who said he'd lower your cost of living on day one.
 ---
 
 ## Quick Read
 This post uses anaphoric stacking — eight crisis lines beginning with "As..." — to imply that Trump's leisure is causally or morally equivalent to negligence during each crisis. The structure makes proximity feel like proof. No causal argument is made; the grammar does the work instead.
-
----
 
 ## Emotional Architecture
 - **Activation:** Outrage. Opening line plants the frame immediately: US troops are shipping out. Something is already wrong.
 - **Escalation:** The list moves strategically from domestic (jobs, gas) → catastrophic international (acid rain, a regional war, a new Iranian Supreme Leader) → conspiratorial ("the Epstein files stay buried"). The final escalation step — from verified current events to an unfalsifiable implication — is the tell.
 - **Exit ramp:** Moral indictment via broken promise. "This is the man who said he'd lower your cost of living on day one." Converts the emotional buildup into a verdict.
 
----
-
 ## Influence Principles Detected
 - **Unity:** The post constructs an implicit "we" — everyone suffering through these crises — against Trump and "his billionaire friends." The word "friends" is doing quiet work: it signals a private world the reader is excluded from.
 - **Commitment/Consistency:** "The man who *said* he'd lower your cost of living." This uses Trump's own words as the trap. You believed him, so now your own belief system has to reckon with the evidence.
 - **Liking:** The reader is positioned inside the suffering group by default. You're losing jobs, paying more at the pump, watching a war unfold. He's golfing.
-
----
 
 ## Source Check
 
@@ -67,12 +69,8 @@ The post says Switzerland called it a **war crime**. Pfister said **violation of
 **Claim: "The Epstein files stay buried"**
 → **Exists as a political reference; does not exist as a specific current event.** The Jeffrey Epstein files have been the subject of ongoing political controversy. However, the post attaches no specific recent development — no new filing, no specific suppression event, no date. This item is structurally different from every other item on the list. It is not a current crisis. It is an evergreen implication inserted into a list of verified current events, borrowing credibility from its neighbors.
 
----
-
 ## Thought-Terminating Clichés
 None explicit. The post is above-average in craft — it doesn't need "wake up" or "let that sink in" because the anaphoric structure *is* the thought-terminating device. Eight parallel clauses delivered rapid-fire produce the same effect as "let that sink in" without saying it. The form is the cliché.
-
----
 
 ## Deeper Patterns
 
@@ -87,19 +85,13 @@ The alternative frame of the same verified facts: "The Trump administration laun
 **Identity-Threat Construction (2E): The Promise Closer**
 The final line — "This is the man who said he'd lower your cost of living on day one" — is not aimed at people who oppose Trump. They already agree. It targets people who voted for him *because* of cost-of-living promises. For that reader, agreement means accepting that their vote was based on a broken promise. Disagreement requires defending a record that includes a net loss of 92,000 jobs. The post closes by making it personal and identity-implicating.
 
----
-
 ## What to Ask Yourself
 1. The post says "As..." eight times. That means it's claiming these things happened simultaneously. Was Trump actually on the golf course when each of these events occurred? That's a verifiable, specific question the post never answers.
 2. What would the post look like if Trump were *not* playing golf? The "As..." structure implies that golf is the problem. Is there a presidential response to the Iran war, the jobs report, or any of these crises that would satisfy the implied standard — and did it happen?
 3. "The Epstein files stay buried" appears between a verified geopolitical event (Iran's new Supreme Leader) and a verified domestic one (the golf game). Why is an unfalsifiable implication in the middle of a list of current events? What is it borrowing from its neighbors?
 
----
-
 ## Facebook Teaser
 Count the "As..." lines: eight real crises, rapid-fire. Six of them check out. Then "the Epstein files stay buried" — no date, no specific file, no recent event, just an implication dropped into a list of verified facts. The post never claims Trump caused any of these things. It just puts them in the same sentence. Here's how that structure works on you: [link]
-
----
 
 *Sources consulted:*
 - [BLS Employment Situation Summary, February 2026](https://www.bls.gov/news.release/empsit.nr0.htm)
@@ -113,4 +105,3 @@ Count the "As..." lines: eight real crises, rapid-fire. Six of them check out. T
 - [PBS NewsHour: US military buildup in the Middle East](https://www.pbs.org/newshour/world/heres-what-we-know-about-the-buildup-of-u-s-military-assets-in-the-middle-east)
 - [HRW: US/Israel: Investigate Iran School Attack as a War Crime](https://www.hrw.org/news/2026/03/07/us/israel-investigate-iran-school-attack-as-a-war-crime)
 - [Wikipedia: 2026 Iranian Supreme Leader election](https://en.wikipedia.org/wiki/2026_Iranian_Supreme_Leader_election)
-
