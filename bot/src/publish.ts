@@ -1,7 +1,7 @@
 import { writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { simpleGit } from "simple-git";
-import { ANALYSIS_DIR } from "./constants.js";
+import { ANALYSIS_DIR } from "./constants.ts";
 
 export interface PublishResult {
   slug: string;

@@ -16,10 +16,16 @@ export async function loadState(): Promise<void> {
   try {
     const raw = await readFile(STATE_FILE, "utf-8");
     const entries: [string, AnalysisState][] = JSON.parse(raw);
+    let pruned = 0;
     for (const [k, v] of entries) {
-      threads.set(k, v);
+      if (v.published) {
+        pruned++;
+      } else {
+        threads.set(k, v);
+      }
     }
-    console.log(`Loaded ${threads.size} thread(s) from disk`);
+    console.log(`Loaded ${threads.size} thread(s) from disk (pruned ${pruned} published)`);
+    if (pruned > 0) await saveState();
   } catch {
     // No file yet or corrupt — start fresh
     console.log("No existing state file — starting fresh");
@@ -41,5 +47,10 @@ export async function setThread(threadId: string, state: AnalysisState): Promise
 }
 
 export async function updateThread(threadId: string): Promise<void> {
+  await saveState();
+}
+
+export async function removeThread(threadId: string): Promise<void> {
+  threads.delete(threadId);
   await saveState();
 }

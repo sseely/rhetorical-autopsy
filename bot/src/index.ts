@@ -1,20 +1,21 @@
-import {
+import * as discord from "discord.js";
+const {
   Client,
   Events,
   GatewayIntentBits,
   Partials,
-  Message,
-  MessageReaction,
-  PartialMessageReaction,
-  User,
-  PartialUser,
-  ThreadChannel,
-} from "discord.js";
-import { analyzeContent, downloadToTemp, cleanupTempFiles } from "./analyze.js";
-import { publishAnalysis } from "./publish.js";
-import { APPROVAL_EMOJI } from "./constants.js";
-import { loadState, getThread, setThread, updateThread } from "./state.js";
-import type { AnalysisState } from "./state.js";
+} = discord;
+type Message = discord.Message;
+type MessageReaction = discord.MessageReaction;
+type PartialMessageReaction = discord.PartialMessageReaction;
+type User = discord.User;
+type PartialUser = discord.PartialUser;
+type ThreadChannel = discord.ThreadChannel;
+import { analyzeContent, downloadToTemp, cleanupTempFiles } from "./analyze.ts";
+import { publishAnalysis } from "./publish.ts";
+import { APPROVAL_EMOJI } from "./constants.ts";
+import { loadState, getThread, setThread, updateThread, removeThread } from "./state.ts";
+import type { AnalysisState } from "./state.ts";
 
 // ── Config from environment ──────────────────────
 const DISCORD_TOKEN = requiredEnv("DISCORD_TOKEN");
@@ -247,6 +248,7 @@ async function handleApproval(
     );
 
     await cleanupTempFiles(state.originalImagePaths);
+    await removeThread(thread.id);
 
     // Post Facebook teaser as its own message for easy copy-paste
     const { teaser, url: publishedUrl } = extractTeaser(state.currentAnalysis, result.url);
