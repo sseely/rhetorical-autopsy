@@ -285,7 +285,7 @@ What is this content doing, mechanically? Who is it designed to persuade and how
 [2-3 questions the reader should sit with — these are the inoculation]
 
 ## Facebook Teaser
-[2-3 sentences max. Pull specific phrases from the original post that do structural work — repeated words, unnamed sources, tribal closers — and use them to create recognition: "I read that and didn't notice." End with "Here's how this post works on you: [link]" or similar. The teaser should make the reader see the machinery they just experienced, not summarize the analysis.]
+[2-3 sentences max. This is the most important section — it's what gets posted as a Facebook comment to drive people to the full analysis. Pull specific phrases from the original post that do structural work — repeated words, unnamed sources, tribal closers — and use them to create recognition: "I read that and didn't notice." End with "Here's how this post works on you: [link]" or similar. The teaser should make the reader see the machinery they just experienced, not summarize the analysis. Write it as a standalone comment — no markdown formatting, no headers, just plain text that works in a Facebook comment box.]
 ```
 
 ---

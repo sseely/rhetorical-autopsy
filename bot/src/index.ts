@@ -247,9 +247,10 @@ async function handleApproval(
     );
 
     await cleanupTempFiles(state.originalImagePaths);
-    await thread.send(
-      `Published. URL (after deploy): ${result.url}`
-    );
+
+    // Extract Facebook Teaser and post it with the URL, ready to copy-paste
+    const teaser = extractTeaser(state.currentAnalysis, result.url);
+    await thread.send(teaser);
   } catch (err) {
     state.published = false;
     await updateThread(thread.id);
@@ -261,6 +262,20 @@ async function handleApproval(
 }
 
 // ── Helpers ──────────────────────────────────────
+
+function extractTeaser(markdown: string, url: string): string {
+  const match = markdown.match(
+    /## Facebook Teaser\s*\n+([\s\S]*?)(?=\n##\s|$)/
+  );
+  const teaser = match
+    ? match[1].trim().replace(/\[link\]/g, url)
+    : null;
+
+  if (teaser) {
+    return `**Ready to post on Facebook:**\n\n${teaser}\n\n*(Copy the text above as a comment on the original post)*`;
+  }
+  return `Published: ${url}`;
+}
 
 function formatPreview(markdown: string): string {
   const maxLen = 1900;
