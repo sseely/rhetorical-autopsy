@@ -1,14 +1,20 @@
 ---
 layout: layouts/base.njk
 ---
+<section class="site-intro">
+  <p>This site analyzes the <strong>structure</strong> of divisive social media content — the specific techniques a post uses to bypass critical thinking and make you feel instead of evaluate. It names the technique, quotes the language doing the work, and explains why it works psychologically.</p>
+  <p>It is not fact-checking. It does not take political sides. The same framework applies to content from any direction.</p>
+  <p>The method is grounded in <a href="/method/">inoculation theory</a>: exposing people to persuasion tactics in weakened, explained form builds cognitive resistance — the same principle as a vaccine. <a href="/method/">Read more about the method and the research behind it.</a></p>
+</section>
+
 <section class="analyses-list">
-  <h1>Analyses</h1>
+  <h2>Analyses</h2>
   {% set analysisList = collections.analyses %}
   {% if analysisList | length %}
   {% for post in analysisList %}
   <article class="analysis-card">
     <time datetime="{{ post.date | isoDate }}">{{ post.date | readableDate }}</time>
-    <h2><a href="{{ post.url }}">{{ post.data.title }}</a></h2>
+    <h3><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
     {% if post.data.description %}
     <p>{{ post.data.description }}</p>
     {% endif %}
