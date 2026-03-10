@@ -133,6 +133,13 @@ body {
   color: var(--color-text);
   text-decoration: none;
   letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.site-logo {
+  flex-shrink: 0;
 }
 
 .site-header-top {
