@@ -135,7 +135,7 @@ async function handleNewPost(message: Message): Promise<void> {
   // Download images to temp files
   const imagePaths: string[] = [];
   if (imageAttachments.length > 0) {
-    await thread.send(
+    await safeSend(thread,
       `Downloading ${imageAttachments.length} image(s) and running analysis...`
     );
     for (const att of imageAttachments) {
@@ -152,7 +152,7 @@ async function handleNewPost(message: Message): Promise<void> {
       }
     }
   } else {
-    await thread.send("Running analysis...");
+    await safeSend(thread, "Running analysis...");
   }
 
   try {
@@ -164,7 +164,7 @@ async function handleNewPost(message: Message): Promise<void> {
     );
 
     const preview = formatPreview(result.markdown);
-    await thread.send(preview);
+    await safeSend(thread, preview);
 
     await setThread(thread.id, {
       originalPost: content,
@@ -173,12 +173,12 @@ async function handleNewPost(message: Message): Promise<void> {
       published: false,
     });
 
-    await thread.send(
+    await safeSend(thread,
       `React with ${APPROVAL_EMOJI} on the preview above to publish.\nReply in this thread to request changes.`
     );
   } catch (err) {
     console.error("Analysis failed:", err);
-    await thread.send(
+    await safeSend(thread,
       `Analysis failed: ${err instanceof Error ? err.message : "unknown error"}`
     );
   }
@@ -189,21 +189,21 @@ async function handleRevision(message: Message): Promise<void> {
   const state = getThread(thread.id);
 
   if (!state) {
-    await thread.send(
+    await safeSend(thread,
       "No active analysis in this thread. Paste content in the main channel to start."
     );
     return;
   }
 
   if (state.published) {
-    await thread.send("This analysis has already been published.");
+    await safeSend(thread, "This analysis has already been published.");
     return;
   }
 
   const feedback = message.content.trim();
   if (!feedback) return;
 
-  await thread.send("Re-running analysis with feedback...");
+  await safeSend(thread, "Re-running analysis with feedback...");
 
   try {
     const result = await analyzeContent(
@@ -214,17 +214,17 @@ async function handleRevision(message: Message): Promise<void> {
     );
 
     const preview = formatPreview(result.markdown);
-    await thread.send(preview);
+    await safeSend(thread, preview);
 
     state.currentAnalysis = result.markdown;
     await updateThread(thread.id);
 
-    await thread.send(
+    await safeSend(thread,
       `Updated preview posted. React with ${APPROVAL_EMOJI} to publish, or reply with more feedback.`
     );
   } catch (err) {
     console.error("Revision failed:", err);
-    await thread.send(
+    await safeSend(thread,
       `Revision failed: ${err instanceof Error ? err.message : "unknown error"}`
     );
   }
@@ -236,7 +236,7 @@ async function handleApproval(
 ): Promise<void> {
   state.published = true;
   await updateThread(thread.id);
-  await thread.send("Publishing...");
+  await safeSend(thread, "Publishing...");
 
   try {
     const result = await publishAnalysis(
@@ -248,14 +248,18 @@ async function handleApproval(
 
     await cleanupTempFiles(state.originalImagePaths);
 
-    // Extract Facebook Teaser and post it with the URL, ready to copy-paste
-    const teaser = extractTeaser(state.currentAnalysis, result.url);
-    await thread.send(teaser);
+    // Post Facebook teaser as its own message for easy copy-paste
+    const { teaser, url: publishedUrl } = extractTeaser(state.currentAnalysis, result.url);
+    await safeSend(thread, `Published: ${publishedUrl}`);
+    if (teaser) {
+      await safeSend(thread, "**Copy the text below as a comment on the original post:**");
+      await safeSend(thread, teaser);
+    }
   } catch (err) {
     state.published = false;
     await updateThread(thread.id);
     console.error("Publish failed:", err);
-    await thread.send(
+    await safeSend(thread,
       `Publish failed: ${err instanceof Error ? err.message : "unknown error"}. You can try again.`
     );
   }
@@ -263,22 +267,34 @@ async function handleApproval(
 
 // ── Helpers ──────────────────────────────────────
 
-function extractTeaser(markdown: string, url: string): string {
+const DISCORD_MAX = 2000;
+
+async function safeSend(
+  channel: ThreadChannel,
+  text: string
+): Promise<void> {
+  if (text.length <= DISCORD_MAX) {
+    await channel.send(text);
+    return;
+  }
+  const truncated = text.slice(0, DISCORD_MAX - 50);
+  const lastNewline = truncated.lastIndexOf("\n");
+  const cutPoint = lastNewline > DISCORD_MAX / 2 ? lastNewline : truncated.length;
+  await channel.send(truncated.slice(0, cutPoint) + "\n\n*[message truncated]*");
+}
+
+function extractTeaser(markdown: string, url: string): { teaser: string | null; url: string } {
   const match = markdown.match(
     /## Facebook Teaser\s*\n+([\s\S]*?)(?=\n##\s|$)/
   );
   const teaser = match
     ? match[1].trim().replace(/\[link\]/g, url)
     : null;
-
-  if (teaser) {
-    return `**Ready to post on Facebook:**\n\n${teaser}\n\n*(Copy the text above as a comment on the original post)*`;
-  }
-  return `Published: ${url}`;
+  return { teaser, url };
 }
 
 function formatPreview(markdown: string): string {
-  const maxLen = 1900;
+  const maxLen = 1200;
   if (markdown.length <= maxLen) return markdown;
 
   // Cut at last sentence-ending punctuation before the limit
