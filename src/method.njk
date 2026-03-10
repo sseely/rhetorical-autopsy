@@ -2,6 +2,7 @@
 layout: layouts/base.njk
 title: The Method
 description: "How Rhetorical Autopsy analyzes divisive content — the research, the framework, and why it works."
+useMermaid: true
 ---
 <article class="method-page">
   <h1>The Method</h1>
@@ -31,6 +32,29 @@ description: "How Rhetorical Autopsy analyzes divisive content — the research,
     <li>van der Linden, S., Leiserowitz, A., Rosenthal, S., & Maibach, E. (2017). "Inoculating the Public against Misinformation about Climate Change." <em>Global Challenges</em>, 1(2). <a href="https://doi.org/10.1002/gch2.201600008">doi:10.1002/gch2.201600008</a></li>
     <li>Roozenbeek, J. & van der Linden, S. (2019). "Fake News Game Confers Psychological Resistance Against Online Misinformation." <em>Palgrave Communications</em>, 5(65). <a href="https://doi.org/10.1057/s41599-019-0279-9">doi:10.1057/s41599-019-0279-9</a></li>
   </ul>
+
+  <hr>
+
+  <h2>How an Analysis Gets Made</h2>
+
+  <p>Each analysis follows the same pipeline. Content comes in, gets run through the full framework, goes through human review, and only publishes after approval.</p>
+
+  <pre class="mermaid">
+  flowchart TD
+      A["Content submitted\nfor analysis"] --> B["AI runs full framework\nagainst the content"]
+      B --> C["Source verification:\nweb searches for cited\ninstitutions, studies, experts"]
+      C --> D["Structured analysis\ngenerated"]
+      D --> E["Human reviewer\nreads the analysis"]
+      E --> F{"Reviewer decision"}
+      F -->|"Requests changes"| B
+      F -->|"Approves"| G["Analysis published\nto site"]
+
+      style A fill:#002868,color:#fff
+      style G fill:#002868,color:#fff
+      style F fill:#ffd700,color:#000
+  </pre>
+
+  <p>The revision loop matters. The AI does the heavy lifting — pattern detection, source verification, research citation — but a human decides whether the analysis is fair, accurate, and clear before it goes live. No analysis auto-publishes.</p>
 
   <hr>
 

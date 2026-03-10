@@ -64,6 +64,13 @@
   <meta name="theme-color" content="#0f1219" media="(prefers-color-scheme: dark)">
   <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="/feed.xml">
   <link rel="stylesheet" href="/assets/css/style.css">
+  {% if useMermaid %}
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    mermaid.initialize({ startOnLoad: true, theme: isDark ? 'dark' : 'default' });
+  </script>
+  {% endif %}
 </head>
 <body>
   <header class="site-header">
