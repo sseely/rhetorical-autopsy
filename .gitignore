@@ -6,4 +6,7 @@ _site/
 bot/dist/
 bot/node_modules/
 .playwright-mcp/
+.tmp-*
+thread-state.json
 *.png
+!src/assets/img/*.png
