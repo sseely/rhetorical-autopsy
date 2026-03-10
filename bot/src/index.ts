@@ -2,6 +2,7 @@ import {
   Client,
   Events,
   GatewayIntentBits,
+  Partials,
   Message,
   MessageReaction,
   PartialMessageReaction,
@@ -9,9 +10,11 @@ import {
   PartialUser,
   ThreadChannel,
 } from "discord.js";
-import { analyzeContent } from "./analyze.js";
+import { analyzeContent, downloadToTemp, cleanupTempFiles } from "./analyze.js";
 import { publishAnalysis } from "./publish.js";
 import { APPROVAL_EMOJI } from "./constants.js";
+import { loadState, getThread, setThread, updateThread } from "./state.js";
+import type { AnalysisState } from "./state.js";
 
 // ── Config from environment ──────────────────────
 const DISCORD_TOKEN = requiredEnv("DISCORD_TOKEN");
@@ -28,16 +31,6 @@ function requiredEnv(name: string): string {
   return value;
 }
 
-// ── In-memory state per analysis thread ──────────
-interface AnalysisState {
-  originalPost: string;
-  currentAnalysis: string;
-  previewMessageId: string;
-  published: boolean;
-}
-
-const threadState = new Map<string, AnalysisState>();
-
 // ── Discord client ───────────────────────────────
 const client = new Client({
   intents: [
@@ -45,6 +38,11 @@ const client = new Client({
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.GuildMessageReactions,
     GatewayIntentBits.MessageContent,
+  ],
+  partials: [
+    Partials.Message,
+    Partials.Reaction,
+    Partials.Channel,
   ],
 });
 
@@ -82,28 +80,36 @@ client.on(
     reaction: MessageReaction | PartialMessageReaction,
     user: User | PartialUser
   ) => {
+    console.log(`[Reaction] Received reaction event: emoji=${reaction.emoji.name}, user=${user.id}, bot=${user.bot}`);
+
     if (user.bot) return;
 
     // Fetch partial if needed
     if (reaction.partial) {
       try {
         await reaction.fetch();
-      } catch {
+      } catch (err) {
+        console.error("[Reaction] Failed to fetch partial reaction:", err);
         return;
       }
     }
 
+    console.log(`[Reaction] Emoji: "${reaction.emoji.name}" vs APPROVAL_EMOJI: "${APPROVAL_EMOJI}"`);
     if (reaction.emoji.name !== APPROVAL_EMOJI) return;
 
     const channel = reaction.message.channel;
+    console.log(`[Reaction] Channel isThread: ${channel.isThread()}`);
     if (!channel.isThread()) return;
+    console.log(`[Reaction] parentId: ${channel.parentId} vs DISCORD_CHANNEL_ID: ${DISCORD_CHANNEL_ID}`);
     if (channel.parentId !== DISCORD_CHANNEL_ID) return;
 
-    const state = threadState.get(channel.id);
+    const state = getThread(channel.id);
+    console.log(`[Reaction] Thread state exists: ${!!state}, threadId: ${channel.id}`);
     if (!state) return;
+    console.log(`[Reaction] published: ${state.published}`);
     if (state.published) return;
-    if (reaction.message.id !== state.previewMessageId) return;
 
+    console.log("[Reaction] All checks passed — calling handleApproval");
     await handleApproval(channel, state);
   }
 );
@@ -112,26 +118,56 @@ client.on(
 
 async function handleNewPost(message: Message): Promise<void> {
   const content = message.content.trim();
-  if (!content) return;
+  const imageAttachments = [...message.attachments.values()].filter(
+    a => a.contentType?.startsWith("image/")
+  );
 
-  // Create a thread for this analysis
-  const thread = await message.startThread({
-    name: `Analysis: ${content.slice(0, 80)}...`,
-  });
+  if (!content && imageAttachments.length === 0) return;
 
-  await thread.send("Running analysis...");
+  const threadName = content
+    ? `Analysis: ${content.slice(0, 80)}...`
+    : `Analysis: [image post]`;
+
+  const thread = await message.startThread({ name: threadName });
+
+  // Download images to temp files
+  const imagePaths: string[] = [];
+  if (imageAttachments.length > 0) {
+    await thread.send(
+      `Downloading ${imageAttachments.length} image(s) and running analysis...`
+    );
+    for (const att of imageAttachments) {
+      try {
+        const ext = att.name?.split(".").pop() ?? "png";
+        const tempPath = await downloadToTemp(
+          att.url,
+          REPO_PATH,
+          `${att.id}.${ext}`
+        );
+        imagePaths.push(tempPath);
+      } catch (err) {
+        console.error(`Failed to download attachment ${att.id}:`, err);
+      }
+    }
+  } else {
+    await thread.send("Running analysis...");
+  }
 
   try {
-    const result = await analyzeContent(content, REPO_PATH);
+    const result = await analyzeContent(
+      content,
+      REPO_PATH,
+      undefined,
+      imagePaths.length > 0 ? imagePaths : undefined
+    );
 
-    // Post preview — truncate if over Discord's 2000-char limit
     const preview = formatPreview(result.markdown);
-    const previewMsg = await thread.send(preview);
+    await thread.send(preview);
 
-    threadState.set(thread.id, {
+    await setThread(thread.id, {
       originalPost: content,
+      originalImagePaths: imagePaths,
       currentAnalysis: result.markdown,
-      previewMessageId: previewMsg.id,
       published: false,
     });
 
@@ -148,7 +184,7 @@ async function handleNewPost(message: Message): Promise<void> {
 
 async function handleRevision(message: Message): Promise<void> {
   const thread = message.channel as ThreadChannel;
-  const state = threadState.get(thread.id);
+  const state = getThread(thread.id);
 
   if (!state) {
     await thread.send(
@@ -171,14 +207,15 @@ async function handleRevision(message: Message): Promise<void> {
     const result = await analyzeContent(
       state.originalPost,
       REPO_PATH,
-      feedback
+      feedback,
+      state.originalImagePaths.length > 0 ? state.originalImagePaths : undefined
     );
 
     const preview = formatPreview(result.markdown);
-    const previewMsg = await thread.send(preview);
+    await thread.send(preview);
 
     state.currentAnalysis = result.markdown;
-    state.previewMessageId = previewMsg.id;
+    await updateThread(thread.id);
 
     await thread.send(
       `Updated preview posted. React with ${APPROVAL_EMOJI} to publish, or reply with more feedback.`
@@ -196,6 +233,7 @@ async function handleApproval(
   state: AnalysisState
 ): Promise<void> {
   state.published = true;
+  await updateThread(thread.id);
   await thread.send("Publishing...");
 
   try {
@@ -206,11 +244,13 @@ async function handleApproval(
       SITE_URL
     );
 
+    await cleanupTempFiles(state.originalImagePaths);
     await thread.send(
       `Published. URL (after deploy): ${result.url}`
     );
   } catch (err) {
     state.published = false;
+    await updateThread(thread.id);
     console.error("Publish failed:", err);
     await thread.send(
       `Publish failed: ${err instanceof Error ? err.message : "unknown error"}. You can try again.`
@@ -227,4 +267,5 @@ function formatPreview(markdown: string): string {
 }
 
 // ── Start ────────────────────────────────────────
+await loadState();
 client.login(DISCORD_TOKEN);

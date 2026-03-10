@@ -105,7 +105,8 @@ ${escapedPost}
   const relPath = join(ANALYSIS_DIR, filename);
   await git.add(relPath);
   await git.commit(`analysis: ${title}`);
-  await git.push("origin", "main");
+  const branch = (await git.branch()).current;
+  await git.push("origin", branch);
 
   const url = `${siteUrl}/analysis/${slug}/`;
   return { slug, filePath, url };
