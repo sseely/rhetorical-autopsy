@@ -47,10 +47,12 @@ useMermaid: true
       D --> E["Human reviewer<br/>reads the analysis"]
       E --> F{"Reviewer decision"}
       F -->|"Requests changes"| B
+      F -->|"Rejects"| H["Analysis aborted"]
       F -->|"Approves"| G["Analysis published<br/>to site"]
 
       style A fill:#002868,color:#fff
       style G fill:#002868,color:#fff
+      style H fill:#bf0a30,color:#fff
       style F fill:#ffd700,color:#000
   </pre>
 

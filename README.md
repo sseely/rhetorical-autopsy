@@ -34,6 +34,8 @@ flowchart TD
     D --> E["Bot posts preview<br/>in thread"]
     E --> F{Reviewer decision}
     F -->|Reply with feedback| D
+    F -->|"React with 👎"| K["Bot cleans up state<br/>and temp files"]
+    K --> L["Analysis aborted"]
     F -->|"React with 👍"| G["Bot strips teaser,<br/>builds frontmatter"]
     G --> H["Bot commits markdown<br/>and pushes to main"]
     H --> I["Cloudflare Pages<br/>rebuilds site"]
@@ -41,6 +43,7 @@ flowchart TD
 
     style A fill:#002868,color:#fff
     style J fill:#002868,color:#fff
+    style L fill:#bf0a30,color:#fff
     style F fill:#ffd700,color:#000
 ```
 

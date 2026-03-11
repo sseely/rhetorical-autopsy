@@ -1,6 +1,6 @@
 # Rhetorical Autopsy Bot
 
-Discord bot that runs the analysis pipeline: paste a post → Claude analyzes it → preview in a thread → revise via replies → approve with 👍 → publish to the site.
+Discord bot that runs the analysis pipeline: paste a post → Claude analyzes it → preview in a thread → revise via replies → approve with 👍 → publish to the site. React with 👎 to abort.
 
 ## Discord Application Setup
 
@@ -55,7 +55,7 @@ Fill in the values:
 
 ## Prerequisites
 
-- **Node.js 18+**
+- **Node.js 22.6+** (uses native TypeScript type stripping — no build step)
 - **Claude CLI** installed and authenticated (`claude --version` should work)
 - The `rhetorical-autopsy` repo cloned locally (the bot writes markdown files and runs `git commit/push`)
 
@@ -65,11 +65,10 @@ Fill in the values:
 # Install dependencies
 npm install
 
-# Development (uses tsx for live TypeScript execution)
+# Development (auto-restarts on file changes)
 npm run dev
 
 # Production
-npm run build
 npm start
 ```
 
@@ -79,7 +78,7 @@ npm start
 2. The bot creates a thread and runs `claude -p` with the CLAUDE.md system prompt
 3. Analysis preview appears in the thread
 4. Reply in the thread to give feedback — the bot re-runs the analysis with your notes
-5. React with 👍 on the preview to approve
+5. React with 👍 to approve, or 👎 to abort (cleans up state and temp files)
 6. The bot generates a markdown file with frontmatter, commits, and pushes to the repo
 7. Cloudflare Pages auto-deploys the site
 8. The bot posts the URL in the thread
@@ -92,6 +91,7 @@ Discord channel
        └─ claude -p (CLAUDE.md as system prompt, WebSearch+WebFetch enabled)
        └─ preview posted in thread
        └─ thread replies → re-run with feedback
+       └─ 👎 reaction → abort (cleanup state + temp files)
        └─ 👍 reaction → publish
             └─ generate markdown + frontmatter
             └─ git add/commit/push

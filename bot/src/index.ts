@@ -13,7 +13,7 @@ type PartialUser = discord.PartialUser;
 type ThreadChannel = discord.ThreadChannel;
 import { analyzeContent, downloadToTemp, cleanupTempFiles } from "./analyze.ts";
 import { publishAnalysis } from "./publish.ts";
-import { APPROVAL_EMOJI } from "./constants.ts";
+import { APPROVAL_EMOJI, REJECTION_EMOJI } from "./constants.ts";
 import { loadState, getThread, setThread, updateThread, removeThread } from "./state.ts";
 import type { AnalysisState } from "./state.ts";
 
@@ -97,8 +97,9 @@ client.on(
       }
     }
 
-    console.log(`[Reaction] Emoji: "${reaction.emoji.name}" vs APPROVAL_EMOJI: "${APPROVAL_EMOJI}"`);
-    if (reaction.emoji.name !== APPROVAL_EMOJI) return;
+    const emoji = reaction.emoji.name;
+    console.log(`[Reaction] Emoji: "${emoji}" vs APPROVAL: "${APPROVAL_EMOJI}" / REJECTION: "${REJECTION_EMOJI}"`);
+    if (emoji !== APPROVAL_EMOJI && emoji !== REJECTION_EMOJI) return;
 
     const channel = reaction.message.channel;
     console.log(`[Reaction] Channel isThread: ${channel.isThread()}`);
@@ -111,6 +112,12 @@ client.on(
     if (!state) return;
     console.log(`[Reaction] published: ${state.published}`);
     if (state.published) return;
+
+    if (emoji === REJECTION_EMOJI) {
+      console.log("[Reaction] Rejection — aborting analysis");
+      await handleRejection(channel, state);
+      return;
+    }
 
     console.log("[Reaction] All checks passed — calling handleApproval");
     await handleApproval(channel, state);
@@ -168,14 +175,14 @@ async function handleNewPost(message: Message): Promise<void> {
     await safeSend(thread, preview);
 
     await setThread(thread.id, {
-      originalPost: content,
+      originalPost: content || result.sourceText,
       originalImagePaths: imagePaths,
       currentAnalysis: result.markdown,
       published: false,
     });
 
     await safeSend(thread,
-      `React with ${APPROVAL_EMOJI} on the preview above to publish.\nReply in this thread to request changes.`
+      `React with ${APPROVAL_EMOJI} to publish, ${REJECTION_EMOJI} to abort.\nReply in this thread to request changes.`
     );
   } catch (err) {
     console.error("Analysis failed:", err);
@@ -221,7 +228,7 @@ async function handleRevision(message: Message): Promise<void> {
     await updateThread(thread.id);
 
     await safeSend(thread,
-      `Updated preview posted. React with ${APPROVAL_EMOJI} to publish, or reply with more feedback.`
+      `Updated preview posted. React with ${APPROVAL_EMOJI} to publish, ${REJECTION_EMOJI} to abort, or reply with more feedback.`
     );
   } catch (err) {
     console.error("Revision failed:", err);
@@ -265,6 +272,15 @@ async function handleApproval(
       `Publish failed: ${err instanceof Error ? err.message : "unknown error"}. You can try again.`
     );
   }
+}
+
+async function handleRejection(
+  thread: ThreadChannel,
+  state: AnalysisState
+): Promise<void> {
+  await cleanupTempFiles(state.originalImagePaths);
+  await removeThread(thread.id);
+  await safeSend(thread, "Analysis aborted.");
 }
 
 // ── Helpers ──────────────────────────────────────

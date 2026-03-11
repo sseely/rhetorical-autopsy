@@ -4,6 +4,7 @@ import { writeFile, unlink } from "node:fs/promises";
 
 export interface AnalysisResult {
   markdown: string;
+  sourceText: string;
 }
 
 /**
@@ -26,7 +27,7 @@ export async function analyzeContent(
     userMessage = `Here is the content to analyze:\n\n${content}\n\nThe post also includes these images — read and incorporate them into your analysis:\n${imageRefs}`;
   } else if (imagePaths?.length) {
     const imageRefs = imagePaths.map(p => `Read the image at: ${p}`).join("\n");
-    userMessage = `The following images are the content to analyze. Read each image, transcribe any text you find, describe the visual content, then run your full analysis:\n${imageRefs}`;
+    userMessage = `The following images are the content to analyze. Read each image, transcribe any text you find, describe the visual content, then run your full analysis.\n\nIMPORTANT: You MUST include the "Source Text:" section in your output with the full transcription of all text from the image(s). This is required for the published page layout.\n\n${imageRefs}`;
   } else {
     userMessage = `Here is the content to analyze:\n\n${content}`;
   }
@@ -46,7 +47,8 @@ export async function analyzeContent(
   console.log(`Prompt length: ${userMessage.length} chars`);
   const markdown = await runClaude(args, repoPath, userMessage);
   console.log(`Claude returned ${markdown.length} chars`);
-  return { markdown };
+  const sourceText = extractSourceText(markdown);
+  return { markdown, sourceText };
 }
 
 /**
@@ -72,6 +74,18 @@ export async function cleanupTempFiles(paths: string[]): Promise<void> {
   for (const p of paths) {
     try { await unlink(p); } catch { /* ignore */ }
   }
+}
+
+function extractSourceText(markdown: string): string {
+  // Multi-line: Source Text: followed by content until next ## heading
+  const multi = markdown.match(/^Source Text:\s*\n([\s\S]*?)(?=\n##\s)/m);
+  if (multi) return multi[1].trim();
+
+  // Single-line: Source Text: content on same line
+  const single = markdown.match(/^Source Text:\s*(.+)$/m);
+  if (single) return single[1].trim();
+
+  return "";
 }
 
 function runClaude(args: string[], cwd?: string, stdinData?: string): Promise<string> {
