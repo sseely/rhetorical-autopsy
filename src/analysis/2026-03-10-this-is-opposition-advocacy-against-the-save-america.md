@@ -1,7 +1,7 @@
 ---
 title: "This is opposition advocacy against the SAVE America"
 date: 2026-03-10
-description: "This is opposition advocacy against the SAVE America Act. It uses largely accurate, verifiable facts — and still deploys standard divisive content mechanics. The interesting thing here isn't fabricati"
+description: "Opposition advocacy against the SAVE America Act that uses largely accurate facts while still deploying standard divisive content mechanics to shape real data into a one-sided emotional package."
 tags:
   - "analysis"
 originalPost: |

@@ -256,6 +256,8 @@ When analyzing content, use this structure:
 ```
 Title: [Short, punchy title for the analysis — 3-8 words, like a medical examiner's case label. Name the primary technique or the content's mechanical purpose. Examples: "Unity as a Weapon", "Fabricated Authority Play", "Fear-Ladder to Policy". NOT a summary of the content's topic.]
 
+Description: [One complete sentence summarizing what the post does mechanically. This becomes the frontmatter `description` field and the preview text on the index page. Must be a single, self-contained sentence — no fragments, no truncation. Derive it from the Quick Read but compress to one sentence.]
+
 Source Text: [If the input was an image, transcribe the complete text from the image here, preserving line breaks. If the input was already text, omit this field entirely.]
 
 ## Quick Read (1-2 sentences)

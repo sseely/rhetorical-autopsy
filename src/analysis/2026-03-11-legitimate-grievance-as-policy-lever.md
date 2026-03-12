@@ -1,7 +1,7 @@
 ---
 title: "Legitimate Grievance as Policy Lever"
 date: 2026-03-11
-description: "This post takes a real, documented problem — the use-it-or-lose-it spending mechanism — and uses it as a runway for a policy prescription (Zero-Based Budgeting) and a tribal exit that frames any oppos"
+description: "This post uses the real use-it-or-lose-it spending problem as a runway for a Zero-Based Budgeting prescription and a tribal exit that frames any opposition as defending bureaucratic waste."
 tags:
   - "analysis"
 originalPost: |

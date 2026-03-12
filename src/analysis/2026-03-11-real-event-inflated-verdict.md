@@ -1,7 +1,7 @@
 ---
 title: "Real Event, Inflated Verdict"
 date: 2026-03-11
-description: "This post takes a documented, genuinely serious event — a preliminary US military investigation finding that a targeting error likely caused a school strike killing over 165 people — and upgrades the "
+description: "This post upgrades a preliminary military investigation finding from 'likely targeting error' to 'proven war crime' while framing an ongoing public investigation as a secret cover-up."
 tags:
   - "analysis"
 originalPost: |

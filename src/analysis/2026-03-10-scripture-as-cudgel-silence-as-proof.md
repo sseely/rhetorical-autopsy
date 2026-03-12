@@ -1,7 +1,7 @@
 ---
 title: "Scripture as Cudgel, Silence as Proof"
 date: 2026-03-10
-description: "This post uses verified facts (real prayer visit, real war, real scandals) as the foundation for an unverifiable assertion (\"refuse to rebuke\"), then hands the reader a verdict delivered by Jesus hims"
+description: "This post uses verified facts as the foundation for an unverifiable assertion, then hands the reader a verdict delivered by Jesus himself to shut down further evaluation."
 tags:
   - "analysis"
 originalPost: |

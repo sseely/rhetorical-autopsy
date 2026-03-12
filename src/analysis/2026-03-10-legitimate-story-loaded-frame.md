@@ -1,7 +1,7 @@
 ---
 title: "Legitimate Story, Loaded Frame"
 date: 2026-03-10
-description: "This post takes a real, reported story — congressional Democrats requesting a DoD IG investigation into religious messaging about the Iran war — and amplifies it through selective number inflation, a "
+description: "This post takes a real story about a congressional DoD IG request and amplifies it through selective number inflation, a mislabeled program, and escalating catastrophe language."
 tags:
   - "analysis"
 originalPost: |
