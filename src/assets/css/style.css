@@ -251,6 +251,36 @@ body {
   margin-bottom: 0.8rem;
 }
 
+/* ── Self-Check Callouts ─────────────────────── */
+.self-check {
+  border-left: 3px solid var(--color-gold);
+  background: var(--color-blockquote-bg);
+  padding: 0.8rem 1.2rem;
+  margin: 1.2rem 0;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  border-radius: 0 4px 4px 0;
+}
+
+.self-check-label {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.self-check p {
+  margin-bottom: 0.5rem;
+}
+
+.self-check p:last-child {
+  margin-bottom: 0;
+}
+
 /* ── Analysis List (Index) ─────────────────────── */
 .analyses-list h1,
 .analyses-list h2 {
